@@ -144,6 +144,9 @@ if __name__ == "__main__":
     lst2 = [[0,1],[4,5]]
     print("Output for 2D multiplication" + str(multiplication_2D(lst1, lst2)))
 
+#Output for 1D addition[10, 11, 8]
+#Output for 2D addition[[1, 3], [7, 9]]
+#Output for 2D multiplication[[8, 11], [16, 23]]
 """
 git commands 
 
@@ -161,39 +164,66 @@ $ git push -u origin HEAD:master
 
 # implementing multithreading version
 import threading 
+import time
 
+# addition 1d
 matrix1 = [3,4,5]
 matrix2 = [7,7,3] 
-def run(n, **totalSum): 
-    for i in range(len(matrix1[0])): 
-        sumThreads['sumThreads'] += matrix1[n][i] + matrix2[n][i] 
-        
-
-sumThreads = {"sumThreads":0}
+res = []
 for i in range(len(matrix1)): 
-    x = threading.Thread(target=run, args = (i,), kwargs = {'sumThreads':sumThreads})
+    res.append(0)
+def threading_addition_1D(n):  
+    res[n] = matrix1[n] + matrix2[n]
+   
+for i in range(len(matrix1)): 
+    x = threading.Thread(target=threading_addition_1D, args = (i,))
     x.start()
-print(sumThreads['sumThreads']) 
+    x.join()
+print(res)
+
+# addition 2d
+
+matrix1 = [[1,2],[3,4]]
+matrix2 = [[0,1],[4,5]]  
+res = [[0 for x in range(2)] for y in range(2)] 
+def threading_addition_2D(i, j): 
+    res[i][j] = matrix1[i][j] + matrix2[i][j]
+
+for i in range(2): 
+    for j in range(2): 
+        x = threading.Thread(target=threading_addition_2D, args = (i,j,k,))
+        x.start()
+        x.join()
+print(res)
 
 
-"""
-    result = []
-    #value = lst1 + lst2
-    #result.append(value)
-    for i in range(len(lst1)):
-        value = lst1[i] + lst2[i] 
-        result.append(value)
+# multiplication 2d
 
-    # print(result)  #[10,11,8] 
-    return result
-"""
+matrix1 = [[1,2],[3,4]]
+matrix2 = [[0,1],[4,5]]  
+res = [[0 for x in range(2)] for y in range(2)] 
+def threading_multiplication_2D(i,j,k): 
+   res[i][j] += lst1[i][k] * lst2[k][j]
+
+for i in range(2): 
+        for j in range(2): 
+            for k in range(2): 
+                x = threading.Thread(target=threading_multiplication_2D, args = (i,j,k, ))
+                x.start()
+                x.join()
+print(res) #[[8, 11], [16, 23]]
 
 
-def threading_addition_2D(num, num): 
-    pass 
-
-def threading_multiplication_2D(row, column): 
-    pass 
+'''
+# explicit for loops
+     for i in range(len(lst1)): 
+        for j in range(len(lst2[0])): 
+            for k in range(len(lst2)): 
+  
+                # resulted matrix
+                final_output[i][j] += lst1[i][k] * lst2[k][j]
+     return final_output
+'''
 
 if __name__ == "__main__":
     # creating thread
