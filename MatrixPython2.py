@@ -24,7 +24,7 @@ def addition_1D(lst1, lst2):
         value = lst1[i] + lst2[i] 
         result.append(value)
 
-    # print(result)  #[10,11,8]
+    # print(result)  #[10,11,8] 
     return result
 
 #if __name__ == "__main__": 
@@ -144,4 +144,76 @@ if __name__ == "__main__":
     lst2 = [[0,1],[4,5]]
     print("Output for 2D multiplication" + str(multiplication_2D(lst1, lst2)))
 
-    
+"""
+git commands 
+
+cd /c 
+cd Users/
+cd puilum/ 
+cd git/
+$ git config --global user.name "puilum-webstructure"
+$ git config --global user.email puilum@webstruc.net
+$ git clone https://github.com/puilum-webstructure/MatrixPython2.git
+git status 
+$ git commit -m"created MatrixPython2" MatrixPython2.py
+$ git push -u origin HEAD:master
+"""
+
+# implementing multithreading version
+import threading 
+
+matrix1 = [3,4,5]
+matrix2 = [7,7,3] 
+def run(n, **totalSum): 
+    for i in range(len(matrix1[0])): 
+        sumThreads['sumThreads'] += matrix1[n][i] + matrix2[n][i] 
+        
+
+sumThreads = {"sumThreads":0}
+for i in range(len(matrix1)): 
+    x = threading.Thread(target=run, args = (i,), kwargs = {'sumThreads':sumThreads})
+    x.start()
+print(sumThreads['sumThreads']) 
+
+
+"""
+    result = []
+    #value = lst1 + lst2
+    #result.append(value)
+    for i in range(len(lst1)):
+        value = lst1[i] + lst2[i] 
+        result.append(value)
+
+    # print(result)  #[10,11,8] 
+    return result
+"""
+
+
+def threading_addition_2D(num, num): 
+    pass 
+
+def threading_multiplication_2D(row, column): 
+    pass 
+
+if __name__ == "__main__":
+    # creating thread
+    A1 = threading.Thread(target=threading_addition_1D, args=(10,))
+    A2 = threading.Thread(target=threading_addition_2D, args=(10,))
+    M2 = threading.Thread(target=threading_multiplication_2D, args=(10,))
+  
+    # starting thread 1
+    A1.start()
+    # starting thread 2
+    A2.start()
+    # starting thread 2
+    M2.start()
+  
+    # wait until thread 1 is completely executed
+    A1.join()
+    # wait until thread 2 is completely executed
+    A2.join()
+    # wait until thread 3 is completely executed
+    M2.join()
+  
+    # both threads completely executed
+    print("Done!")
